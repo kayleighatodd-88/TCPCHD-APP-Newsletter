@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>APP Pulse — August 2026</title>
+<style>
+  body {
+    margin: 0;
+    padding: 32px 12px;
+    background: #f7f3ec;
+    font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    color: #2b2b2b;
+  }
+  .wrap {
+    max-width: 680px;
+    margin: 0 auto;
+    background: #f7f3ec;
+  }
+  .header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding-bottom: 14px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .heart {
+    width: 46px;
+    height: 46px;
+    min-width: 46px;
+    border-radius: 50%;
+    background: #a8241f;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+  }
+  .heart.small {
+    width: 22px;
+    height: 22px;
+    min-width: 22px;
+    font-size: 12px;
+  }
+  .brand h1 {
+    margin: 0;
+    font-size: 30px;
+    letter-spacing: -0.5px;
+    color: #1c1c1c;
+  }
+  .brand .sub {
+    margin-top: 2px;
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    color: #6b6b6b;
+    text-transform: uppercase;
+  }
+  .issue {
+    text-align: right;
+    min-width: 110px;
+  }
+  .issue .month {
+    color: #a8241f;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .issue .num {
+    font-size: 12px;
+    color: #8a8a8a;
+  }
+  .pulse-line {
+    margin-top: 6px;
+    height: 10px;
+    background-image: repeating-linear-gradient(to right, transparent 0 8px, #c0433c 8px 9px);
+  }
+  hr.top {
+    border: none;
+    border-top: 1px solid #e2dccf;
+    margin: 6px 0 18px;
+  }
+  .intro {
+    font-style: italic;
+    color: #4a4a4a;
+    font-size: 14.5px;
+    margin-bottom: 22px;
+  }
+  .card {
+    background: #fff;
+    border: 1px solid #eee2d8;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  .card-header {
+    background: #fbeae7;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .card-header h2 {
+    margin: 0;
+    font-size: 17px;
+    color: #1c1c1c;
+  }
+  .card-body {
+    padding: 18px 20px 4px;
+  }
+  .card-body.pad-bottom {
+    padding-bottom: 18px;
+  }
+  .item {
+    margin-bottom: 16px;
+  }
+  .item .label {
+    font-size: 11.5px;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    margin-bottom: 4px;
+  }
+  .item .body-text {
+    font-size: 14.5px;
+    line-height: 1.5;
+    color: #2b2b2b;
+  }
+  .item .body-text.muted {
+    color: #8a8a8a;
+    font-style: italic;
+  }
+  a { color: #a8241f; }
+  .editor-box {
+    background: #fbeae7;
+    border-radius: 12px;
+    padding: 18px 20px;
+    margin-bottom: 22px;
+  }
+  .editor-box .card-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+  }
+  .editor-box .card-title h2 {
+    margin: 0;
+    font-size: 17px;
+  }
+  .editor-box p {
+    font-size: 14.5px;
+    line-height: 1.55;
+    margin: 0 0 8px;
+    color: #333;
+  }
+  .editor-box .sign {
+    font-style: italic;
+    color: #555;
+    font-size: 13.5px;
+  }
+  .dates-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    color: #a8241f;
+    margin: 4px 0 10px;
+  }
+  .chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 22px;
+  }
+  .chip {
+    border: 1px solid #e5ddcf;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 13px;
+    background: #fff;
+  }
+  .chip b { color: #a8241f; margin-right: 6px; }
+  .stat-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 4px 0 18px;
+  }
+  .stat {
+    flex: 1 1 100px;
+    background: #fbeae7;
+    border-radius: 10px;
+    padding: 10px 12px;
+    text-align: center;
+  }
+  .stat .n {
+    font-size: 22px;
+    font-weight: 700;
+    color: #a8241f;
+  }
+  .stat .l {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    color: #7a7a7a;
+    margin-top: 2px;
+  }
+  table.roster {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13.5px;
+    margin-bottom: 6px;
+  }
+  table.roster th {
+    text-align: left;
+    font-size: 10.5px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    color: #8a8a8a;
+    padding: 6px 8px;
+    border-bottom: 1px solid #eee2d8;
+  }
+  table.roster td {
+    padding: 7px 8px;
+    border-bottom: 1px solid #f3ede2;
+    vertical-align: top;
+  }
+  .footer {
+    text-align: center;
+    padding-top: 10px;
+    border-top: 1px solid #e2dccf;
+    margin-top: 6px;
+  }
+  .footer p {
+    font-size: 14px;
+    margin: 14px 0 8px;
+  }
+  .orgs {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: #a8241f;
+    letter-spacing: 0.3px;
+    padding-bottom: 10px;
+  }
+  .orgs span { margin: 0 6px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="header-row">
+    <div class="brand">
+      <div class="heart">&#9829;</div>
+      <div>
+        <h1>APP Pulse</h1>
+        <div class="sub">Texas Center for Pediatric &amp; Congenital Heart Disease</div>
+      </div>
+    </div>
+    <div class="issue">
+      <div class="month">August 2026</div>
+    </div>
+  </div>
+  <hr class="top">
+
+  <div class="intro">A monthly note on careers, learning, and our CHD community — for the advanced practice providers of our heart center.</div>
+
+  <div class="editor-box">
+    <div class="card-title"><div class="heart small">&#9829;</div><h2>From the Editor</h2></div>
+    <p>Hi team — welcome to the August issue! It's a deadline-heavy month, so consider this your one-stop list: academic funds reset 8/31, QI Collaborative applications close 8/31, and Skills Competency Day lands 8/21. Before you get into logistics, take a minute to celebrate with me — this quarter brought two new DNPs, a new engagement <em>and</em> a DNP acceptance, and a great turnout for a UTSON presentation. Congratulations all around.</p>
+    <p class="sign">— Kayleigh Todd, DNP, APRN, PNP-AC/PC</p>
+  </div>
+
+  <div class="dates-label">SAVE THE DATES</div>
+  <div class="chips">
+    <div class="chip"><b>AUG 3</b>QI Collaborative info session</div>
+    <div class="chip"><b>AUG 21</b>Skills Competency Day</div>
+    <div class="chip"><b>AUG 24</b>QI Collaborative info session</div>
+    <div class="chip"><b>AUG 26</b>PALS/ACLS (tentative)</div>
+    <div class="chip"><b>AUG 31</b>Academic funds &amp; QI application deadline</div>
+    <div class="chip"><b>SEP 28</b>PACE — Professional Advancement for Clinical Excellence</div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="heart small">&#9829;</div><h2>APP Achievements</h2></div>
+    <div class="card-body pad-bottom">
+      <div class="item">
+        <div class="label">Publications</div>
+        <div class="body-text muted">No new publications submitted this cycle — be the first to share yours! Submit via the Academic Summary form below and we'll feature it in the next issue.</div>
+      </div>
+      <div class="item">
+        <div class="label">Awards &amp; Honors</div>
+        <div class="body-text">
+          <b>Mary Clipp</b> and <b>Beth Hadi</b> — congratulations on completing your Doctor of Nursing Practice (DNP) degrees!<br>
+          <b>Rianna</b> — double celebration: newly engaged/married, and accepted into a DNP program. Congratulations!
+        </div>
+      </div>
+      <div class="item">
+        <div class="label">Certifications &amp; Presentations</div>
+        <div class="body-text"><b>Amanda Alvarado</b>, along with CE, presented for the UT School of Nursing (UTSON), highlighting Amanda's project, <b>HAPINES</b>. Great representation for the heart center!</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="heart small">&#9829;</div><h2>Students &amp; Learners</h2></div>
+    <div class="card-body pad-bottom">
+      <div class="item">
+        <div class="label">Current census by team</div>
+        <div class="stat-grid">
+          <div class="stat"><div class="n">12</div><div class="l">CCU</div></div>
+          <div class="stat"><div class="n">11</div><div class="l">CHS</div></div>
+          <div class="stat"><div class="n">7</div><div class="l">Cardiology</div></div>
+          <div class="stat"><div class="n">4</div><div class="l">ACC</div></div>
+        </div>
+        <div class="body-text muted">34 learners tracked across all teams this year — 6 observers, 5 awaiting Ascension clearance.</div>
+      </div>
+      <div class="item">
+        <div class="label">Rotating right now</div>
+        <div class="body-text">Cara Mulroy (NP, CCU) &middot; Kiley Marsh (NP, CCU) &middot; Michele Bredahl (NP, Cardiology) &middot; KayLee Lile (PA, CHS, through 7/31)</div>
+      </div>
+      <div class="item">
+        <div class="label">Arriving soon</div>
+        <table class="roster">
+          <tr><th>Student</th><th>Program</th><th>Team</th><th>Starts</th></tr>
+          <tr><td>Lily Gray</td><td>PA</td><td>CHS</td><td>Aug 3</td></tr>
+          <tr><td>Liz Henningsen</td><td>PA</td><td>Cardiology</td><td>Aug 3</td></tr>
+          <tr><td>Gabby Saucedo</td><td>NP</td><td>CCU &amp; CHS</td><td>Aug 15</td></tr>
+        </table>
+        <div class="body-text muted" style="margin-top:6px;">Later this fall: Whitley Mikes (NP — Cardiology, CHS, CCU), Brooke Mendiola (NP — CCU), and Stephanie Hernandez (NP — Cardiology).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="heart small">&#9829;</div><h2>Free AI Tools — ChatGPT &amp; Claude</h2></div>
+    <div class="card-body pad-bottom">
+      <div class="item">
+        <div class="body-text">ChatGPT and Claude are now <b>free to all current UT students, faculty, and staff</b>. Paid tiers are available if you need higher usage limits — see tier details on the AI Studio page linked below.</div>
+      </div>
+      <div class="item">
+        <div class="label">First-time login</div>
+        <div class="body-text">
+          Go to <a href="https://chatgpt.com/auth/login">ChatGPT</a> or <a href="https://claude.ai/">Claude</a>.
+          <ol style="margin:8px 0 0; padding-left:20px;">
+            <li>Enter your UT EID in the login field using the format <b>yourEID@eid.utexas.edu</b>. Credentials must match this format exactly.</li>
+            <li>Continue through the Microsoft login page.</li>
+            <li>Enter your UT EID credentials on the University of Texas at Austin authentication page.</li>
+            <li>Complete Duo multi-factor authentication if prompted.</li>
+            <li>After authentication, you should be redirected into the UT Austin ChatGPT or Claude environment.</li>
+          </ol>
+        </div>
+      </div>
+      <div class="item">
+        <div class="label">Verify your account</div>
+        <div class="body-text">Click your name in the bottom left corner — it should show UT Austin. If not, sign out and sign back in with your UT EID email. Still having issues? Try clearing your browser cache. More info: <a href="https://utexas.sharepoint.com/sites/AIStudio/SitePages/AI-Tools-and-Services.aspx">UT AI Studio — AI Tools and Services</a>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="heart small">&#9829;</div><h2>QI &amp; Learning at UT</h2></div>
+    <div class="card-body pad-bottom">
+      <div class="item">
+        <div class="label">Dell Med QI Collaborative</div>
+        <div class="body-text">The year-long QI Collaborative (Oct 2026–Sept 2027) opens with a two-day CME workshop on Oct 16 &amp; 23. <b>Apply by August 31.</b> Not sure yet? Join a free info session — <b>Aug 3</b> or <b>Aug 24</b>, 12–1pm — to learn more and ask questions. Contact <a href="mailto:lisset.reyes@austin.utexas.edu">lisset.reyes@austin.utexas.edu</a> for details.</div>
+      </div>
+      <div class="item">
+        <div class="label">JHU Continuing Education</div>
+        <div class="body-text">Johns Hopkins' <b>EBP Skill Build Workshop</b> is back — a 2-day virtual course (Sept 24–25, 11.0 ANCC contact hours) on building a rock-solid evidence-based practice foundation. Registration closes Sept 21. <a href="https://www.ijhn-education.org/node/21674#group-tabs-node-course-default1">Details &amp; registration</a>.</div>
+      </div>
+      <div class="item">
+        <div class="label">Statistical &amp; Analytic Support (Ascension)</div>
+        <div class="body-text">The <b>Ascension Data Science Institute (ADSI)</b> offers statistical consulting for national-level research projects — exploratory analysis, descriptive and Bayesian statistics, regression, hierarchical modeling, survival analysis, propensity score matching, machine learning, and more. Research ideas need service-line/clinical-leader approval and must support Ascension's strategic priorities; once approved, complete the ADSI RedCap research submission form and a team member will follow up on scope and timeline. Contact <a href="mailto:allison.ottenbacher@ascension.org">allison.ottenbacher@ascension.org</a>.</div>
+        <div class="body-text" style="margin-top:8px;"><b>Ana Cristina Perez Moreno, MD</b> — Sr. Research Biostatistician. A physician trained in analytical methods with a PhD and postdoctoral fellowship in cardiovascular research, she collaborates with PIs, fellows, students, nurses, and research staff across Ascension, applying clinical knowledge to advanced statistical methods.</div>
+      </div>
+      <div class="item">
+        <div class="label">Research &amp; Data Resources</div>
+        <div class="body-text">
+          <b>UT Dell Med Health Transformation Research Institute</b> — leadership and infrastructure for clinical and late-stage translational research, moving discoveries from lab to clinical trials to practice. <a href="https://dellmed.utexas.edu/research/health-transformation-research-institute">Learn more</a>.<br>
+          <b>Biomedical Data Science Hub</b> — cross-collaboration with the Dept. of Population Health. <a href="https://dellmed.utexas.edu/research/research-resources#hub">External link</a> &middot; <a href="https://intranet.dellmed.utexas.edu/page/the-biomedical-data-science-hub">Intranet</a>.<br>
+          <b>UT School of Nursing — Center for Applied Data Science (CADS)</b>. <a href="https://nursing.utexas.edu/research/cads">Learn more</a>.
+        </div>
+      </div>
+      <div class="item">
+        <div class="label">Library Access</div>
+        <div class="body-text">
+          <b>Ascension Library Resources</b> — <a href="https://ascensiontx16.tdnetdiscover.com/">ascensiontx16.tdnetdiscover.com</a><br>
+          <b>UT Dell Medical School Library</b> — <a href="https://guides.lib.utexas.edu/medicine">guides.lib.utexas.edu/medicine</a><br>
+          Also worth knowing: your UT library membership includes <b>3 years of free New York Times access</b> — worth claiming if you haven't already.
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="heart small">&#9829;</div><h2>Opportunities to Get Involved</h2></div>
+    <div class="card-body pad-bottom">
+      <div class="item">
+        <div class="label">CE Events</div>
+        <div class="body-text">PALS/ACLS renewal — tentatively planned for <b>Aug 26</b>. Email Kayleigh if you're interested so we can coordinate a group session.</div>
+      </div>
+      <div class="item">
+        <div class="label">PACE — Save the Date</div>
+        <div class="body-text"><b>Professional Advancement for Clinical Excellence</b> — <b>September 28, 2026</b>, location TBD. Hosted by the Amy Greenwood Hemingway Endowed Professorship for Cardiac Nurses and Advanced Practice Providers, featuring Christin Diller + Caroline Morin, for nurses, APPs, and the interdisciplinary care team. Come for one session or stay for the full day — sessions include Grand Rounds: Leading From Where You Are, Legacy Mapping, How to Brand Yourself, Quality vs. Research vs. Education, Elevating the Bedside RN, Advanced Cardiac Cases, Teaching in Chaos, and a Resiliency + Closing session. Breakfast and lunch provided.</div>
+      </div>
+      <div class="item">
+        <div class="label">Academic Funds</div>
+        <div class="body-text">Friendly reminder: academic funds renew <b>August 31</b>. If you haven't used yours yet, now's the time — put it toward a conference, membership, certification, or course.</div>
+      </div>
+      <div class="item">
+        <div class="label">Staff Tuition Assistance Program (STAP)</div>
+        <div class="body-text">A reminder that STAP covers in-state tuition for one eligible course per semester (or multiple courses up to 3 combined credit hours) at UT Austin. To be eligible, you must be a full-time staff employee, have worked at UT for at least one continuous year, have a rating of Meets Expectations or higher on your most recent appraisal, be admitted to UT Austin as a degree or non-degree student, and be registered for classes. Note: graduate coursework covered by STAP is taxable; undergraduate is not. <a href="https://hr.utexas.edu/current/career/staff-tuition-assistance-program">Full details &amp; eligibility</a>.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-header"><div class="heart small">&#9829;</div><h2>Calls for Help</h2></div>
+    <div class="card-body pad-bottom">
+      <div class="item">
+        <div class="label">Annual Academic Summary</div>
+        <div class="body-text">Please complete (or re-submit) your academic involvement summary — it's how we track and celebrate the team's scholarly work heart-center-wide, and it directly informs your academic performance appraisal. <a href="https://forms.gle/wQBZjbzsCjpF3Tsx9">Submit your summary</a>.</div>
+        <div class="stat-grid" style="margin-top:10px;">
+          <div class="stat"><div class="n">17</div><div class="l">APPs responded so far</div></div>
+          <div class="stat"><div class="n">13</div><div class="l">Precepting</div></div>
+          <div class="stat"><div class="n">9</div><div class="l">Leading QI</div></div>
+          <div class="stat"><div class="n">9</div><div class="l">On a committee</div></div>
+          <div class="stat"><div class="n">7</div><div class="l">In research</div></div>
+          <div class="stat"><div class="n">6</div><div class="l">Scholarly-active</div></div>
+        </div>
+        <div class="body-text" style="margin-top:8px;">As of June 30 — with the survey still open — 17 of you had reported in: 12 hold a completed UT Dell Med faculty appointment (3 more in progress), and 3 (Todd, Alvarado, Hadi) hold a doctoral-level degree. On the scholarly side, <b>Kimberly</b> published in <i>Cardiology in the Young</i> and gave a podium talk at the APP Leadership Summit; <b>Amanda</b> was this cycle's most prolific presenter with 5 podium and 5 poster presentations plus a textbook/test-bank contribution; <b>Kally</b> presented a poster on reducing unplanned extubations in the CICU; and <b>Daniel</b> gave a podium talk and served as a conference panel expert. If you haven't submitted yet, your data is what's missing from this picture — please take a few minutes to fill it out.</div>
+      </div>
+      <div class="item">
+        <div class="label">Milestones Survey</div>
+        <div class="body-text">A quick survey to track your professional milestones this year — please complete it, even if this isn't your first time. <a href="https://forms.gle/MeTamFDL9V94yK9K7">Complete the survey</a>.</div>
+        <div class="body-text" style="margin-top:8px;">Why I keep asking: my CCU milestone-tool pilot (presented as a poster this year) paired self- and preceptor-ratings on 30 competency items, scored 1 (novice) to 4 (independent/expert), at multiple points in orientation. The findings suggest this kind of milestone tracking is genuinely useful as an adjunct measure of APP development — not a replacement for narrative feedback, but a complementary data point that can show progression (or a plateau) more objectively than impressions alone.</div>
+        <div class="body-text muted" style="margin-top:8px;">That's also why I want each of you completing this annually for your first 4–5 years rather than just once: a single score only tells you how things turned out. A trend line — recorded every year through the stretch where most APPs move from closely-supervised to fully independent practice — is what actually shows whether growth is on track, has plateaued, or needs a different kind of support, early enough to do something about it. It's the same logic as the pilot, just stretched across a career instead of a single orientation.</div>
+      </div>
+      <div class="item">
+        <div class="label">Call for Volunteers</div>
+        <div class="body-text">Preceptors and station leads needed for <b>Skills Competency Day, Aug 21</b>. Reach out to Kayleigh if you can help run a station.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <p><b>Have something for the next issue?</b> Send it to Kayleigh directly.</p>
+  </div>
+
+</div>
+</body>
+</html>
